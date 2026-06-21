@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-open-sans), "Open Sans", Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(217, 189, 115, 0.16), transparent 28%),
+    radial-gradient(circle at 84% 20%, rgba(123, 177, 164, 0.08), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(167, 108, 87, 0.08), transparent 28%),
+    linear-gradient(180deg, #09100d 0%, #0a120f 38%, #080d0b 100%);
+  color: var(--foreground);
+}
+
+@layer base {
+  :root {
+    --background: #09100d;
+    --foreground: #f8faf8;
+    --middle-foreground: #e8eee9;
+    --sub-foreground: #aab6ae;
+    --accent: #d8b968;
+    --scroll-element-foreground: #7f9187;
+    --language-selector-list-bg: #111715;
+    --language-selector-center-line-bg: #223029;
+    --language-selector-inactive-foreground: #718078;
+    --scrolbar-track-color: #141b18;
+    --border-color: #1c2a24;
+    --lightened-border-color: #28362f;
+    --button-border-color: #33443c;
+    --navbar-border-radius: 8px;
+    --button-border-radius: 8px;
+    --calendar-background: #09100d;
+    --inactive-floating-label-input-outline-color: #3d5147;
+    --floating-label-input-muted-foreground: #9caaa2;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrolbar-track-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+  opacity: 0.8; /* emulate 0.8 opacity on hover */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--scrolbar-track-color);
+}

@@ -1,0 +1,15 @@
+node_modules
+.next
+.logs
+.env.local
+.env.*.local
+.codex_*
+*.log
+*.tmp
+*.cache
+health-*.png
+hero-*.png
+preview-*.png
+services-*.png
+social-proof-*.png
+blog-check-final.png
