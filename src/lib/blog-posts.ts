@@ -304,6 +304,152 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "lazer-epilasyon-sonrasi-bakim-rehberi",
+    title: "Lazer Epilasyon Sonrası Bakım: İlk 48 Saatte Neye Dikkat Etmeli?",
+    description:
+      "Lazer epilasyon sonrası kızarıklık, güneş, duş, spor ve bakım ürünleri konusunda dikkat edilmesi gerekenler.",
+    date: "2026-06-21",
+    readTime: "7 dk",
+    image: "/images/service-images/laser-hair-removal.webp",
+    sections: [
+      {
+        heading: "İlk 48 saat neden önemlidir?",
+        paragraphs: [
+          "Lazer sonrası cilt kısa süreli hassasiyet gösterebilir. Bu dönemde amaç işlemin etkisini bozmadan cildi sakin tutmaktır. Aşırı sıcak, sürtünme, yoğun terleme ve agresif ürünler cildi gereksiz yere yorabilir.",
+          "İlk iki gün, sonucu belirleyen tek şey olmasa da rahat iyileşme için en kritik dönemlerden biridir. Özellikle hassas ciltlerde küçük detaylar büyük fark yaratır.",
+        ],
+      },
+      {
+        heading: "Neler yapılmamalı?",
+        paragraphs: ["Aşağıdaki hatalar sık yapılır ve çoğu zaman gereksiz hassasiyet oluşturur."],
+        bullets: [
+          "Sıcak duş ve sauna",
+          "Peeling ve sert kese",
+          "Aşırı güneşlenme",
+          "Yoğun spor ve terleme",
+          "Parfümlü veya asitli ürünler",
+          "Cildi kaşıma veya ovalama",
+        ],
+      },
+      {
+        heading: "Neler yapılabilir?",
+        paragraphs: [
+          "Ilık su, hafif ürünler ve bölgeyi rahat bırakmak çoğu zaman yeterlidir. Merkezden verilen bakım tavsiyeleri varsa bunlara uymak en güvenli yoldur.",
+          "Eğer bölgesel kızarıklık beklenenden uzun sürerse, mutlaka uygulamayı yapan merkezle iletişime geçin ve cilt tepkisini paylaşın.",
+        ],
+      },
+      {
+        heading: "Sonraki seanslar için ne öğrenmelisiniz?",
+        paragraphs: [
+          "Bir önceki seansta cildin nasıl tepki verdiği, sonraki ayarı ve seans aralığını etkileyebilir. Bu yüzden her seanstan sonra kısa bir not almak iyi olur: hassasiyet, kızarıklık süresi, tıraş zamanı ve kullanılan ürünler.",
+        ],
+      },
+      {
+        heading: "İlgili sayfalar",
+        paragraphs: [
+          "Lazer sürecini daha iyi anlamak için Isparta lazer epilasyon, buz lazer Isparta ve kıl kökü analizi sayfalarına da göz atabilirsiniz.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cilt-bakimi-sonrasi-ne-yapilmali",
+    title: "Cilt Bakımı Sonrası Ne Yapılmalı? Hassas Ciltler İçin Uygulama Sonrası Rehber",
+    description:
+      "Cilt bakımı sonrası kızarıklık, nem dengesi, ürün seçimi ve ev rutini için pratik öneriler.",
+    date: "2026-06-21",
+    readTime: "7 dk",
+    image: "/images/service-images/facial.webp",
+    sections: [
+      {
+        heading: "Bakım sonrası cilt ne ister?",
+        paragraphs: [
+          "Cilt bakımı sonrası amaç cildi fazla uyarmadan dengeyi korumaktır. Özellikle hassas ve leke eğilimli ciltlerde yeni ürün denemeleri yerine sakin ve düzenli bir rutin daha iyi sonuç verir.",
+          "İşlem sonrası ilk birkaç saat cildin hafif sıcak veya canlı görünmesi normal olabilir. Burada önemli olan, cildi rahat bırakmak ve doğru ürünleri seçmektir.",
+        ],
+      },
+      {
+        heading: "İlk gün önerileri",
+        paragraphs: ["Aşağıdaki küçük adımlar çoğu danışan için güvenli bir çerçeve sunar."],
+        bullets: [
+          "Yoğun makyajdan kaçın",
+          "Parfümlü ürün kullanma",
+          "Ilık suyla nazik temizlik yap",
+          "Güneşten koru",
+          "Bol su tüket",
+          "Cildi kurcalama",
+        ],
+      },
+      {
+        heading: "Ev rutini nasıl sade tutulmalı?",
+        paragraphs: [
+          "Bakım sonrası dönemde ürün sayısını artırmak yerine azaltmak çoğu zaman daha iyi çalışır. Temizleyici, uygun nemlendirici ve gerekiyorsa güneş koruyucu ile kısa bir rutin oluşturun.",
+          "Yeni asitler, retinoidler veya sert peeling ürünleri doğrudan devreye sokulmamalıdır; cildin ne istediği takip edilmelidir.",
+        ],
+      },
+      {
+        heading: "Bakım ile hangi hizmetler birlikte düşünülür?",
+        paragraphs: [
+          "Cilt bakımı çoğu zaman dermapen, ücretsiz cilt analizi ve bazen kalıcı makyaj öncesi değerlendirme ile birlikte planlanır. Aynı cilt bir sonraki aşamada daha farklı bir desteğe ihtiyaç duyabilir.",
+        ],
+      },
+      {
+        heading: "İlgili rehberler",
+        paragraphs: [
+          "Medikal cilt bakımı, ücretsiz cilt analizi ve dermapen sayfaları bakım sonrası bakım planını anlamak için iyi bir devam noktasıdır.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "lazer-epilasyon-kac-seansta-etki-eder",
+    title: "Lazer Epilasyon Kaç Seansta Etki Eder? Gerçekçi Beklenti Rehberi",
+    description:
+      "Seans sayısını etkileyen faktörler, erkek ve kadın bölgeler arasındaki farklar ve gerçekçi sonuç okuma rehberi.",
+    date: "2026-06-21",
+    readTime: "8 dk",
+    image: "/images/service-images/laser-hair-removal.webp",
+    sections: [
+      {
+        heading: "Tek sayı vermek neden doğru değil?",
+        paragraphs: [
+          "Lazer epilasyonda seans sayısı; kıl yapısı, hormon dengesi, cilt tonu, bölge ve kullanılan teknolojiye göre değişir. Bu yüzden internette gördüğünüz sabit sayıların hepsi herkese uymaz.",
+          "Bazı kişilerde ilk seanstan itibaren dökülme fark edilirken, bazı bölgelerde gözle görülür değişim daha yavaş gelir. Önemli olan doğru plan ve istikrardır.",
+        ],
+      },
+      {
+        heading: "Seansı etkileyen ana faktörler",
+        paragraphs: ["Gerçek sonuç için şu değişkenlere birlikte bakılır."],
+        bullets: [
+          "Kılın kalınlığı ve rengi",
+          "Uygulama bölgesinin yoğunluğu",
+          "Cilt tonu ve hassasiyet",
+          "Düzenli seans takibi",
+          "Güneş ve bakım alışkanlıkları",
+          "Erkek/kadın kıl farkı",
+        ],
+      },
+      {
+        heading: "İlk değişim ne zaman görünür?",
+        paragraphs: [
+          "Çoğu danışan ilk birkaç seanstan sonra daha düzenli bir dökülme ve yavaşlama fark eder. Ancak kalıcı ve istikrarlı ilerleme için tek bir seansta sonuç beklemek doğru değildir.",
+        ],
+      },
+      {
+        heading: "Yanlış beklenti neye yol açar?",
+        paragraphs: [
+          "Hızlı mucize beklentisi, iyi bir planı bozabilir. Cildin ihtiyacına göre ilerlemek hem daha güvenli hem de daha sürdürülebilir sonuç verir.",
+        ],
+      },
+      {
+        heading: "İlgili sayfalar",
+        paragraphs: [
+          "Buz lazer Isparta, erkek lazer epilasyon ve kıl kökü analizi sayfaları bu konunun devamı niteliğindedir.",
+        ],
+      },
+    ],
+  },
 ];
 
 export const getBlogPost = (slug: string) => blogPosts.find((post) => post.slug === slug);

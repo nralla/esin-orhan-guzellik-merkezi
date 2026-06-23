@@ -65,7 +65,11 @@ export default function SocialProofSection() {
       <div className="mt-12 overflow-hidden">
         <div className="reviews-track flex w-max gap-4">
           {[...realReviews, ...realReviews].map((review, index) => (
-            <article key={`${review.name}-${index}`} className="w-[320px] shrink-0 border border-white/10 bg-[#101815] p-6 sm:w-[390px]">
+            <article
+              key={`${review.name}-${index}`}
+              className="w-[320px] shrink-0 border border-white/10 bg-[#101815] p-6 sm:w-[390px]"
+              aria-hidden={index >= realReviews.length}
+            >
               <div role="img" className="flex gap-1 text-[#f4c84b]" aria-label="5 yıldızlı Google yorumu">
                 {[0, 1, 2, 3, 4].map((star) => <Star key={star} className="h-4 w-4 fill-current" />)}
               </div>
@@ -87,6 +91,8 @@ export default function SocialProofSection() {
               href={googleReviewsUrl}
               target="_blank"
               rel="noreferrer"
+              aria-hidden={index >= tickerItems.length}
+              tabIndex={index >= tickerItems.length ? -1 : undefined}
               className="flex h-12 items-center gap-3 whitespace-nowrap border border-white/10 bg-[#101815] px-5 text-sm text-white/80 hover:border-[#d9bd73]/60"
             >
               <Star className="h-4 w-4 fill-[#f4c84b] text-[#f4c84b]" />

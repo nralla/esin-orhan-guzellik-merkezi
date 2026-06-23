@@ -69,7 +69,7 @@ const rawServices: Service[] = [
     duration: 45,
     nameKey: "service_manicure_name",
     descKey: "service_manicure_desc",
-    imageUrl: "/images/service-images/laser-hair-removal.webp",
+    imageUrl: "/images/service-images/needle-epilation.webp",
   },
   {
     id: "skin_care",
@@ -89,7 +89,7 @@ const rawServices: Service[] = [
     duration: 60,
     nameKey: "service_makeup_name",
     descKey: "service_makeup_desc",
-    imageUrl: "/images/service-images/facial.webp",
+    imageUrl: "/images/service-images/regional-slimming.webp",
   },
   {
     id: "ems",
@@ -99,7 +99,7 @@ const rawServices: Service[] = [
     duration: 40,
     nameKey: "service_brow_shaping_name",
     descKey: "service_brow_shaping_desc",
-    imageUrl: "/images/service-images/facial.webp",
+    imageUrl: "/images/service-images/ems.webp",
   },
   {
     id: "permanent_makeup",
@@ -119,7 +119,7 @@ const rawServices: Service[] = [
     duration: 60,
     nameKey: "service_hot_stone_massage_name",
     descKey: "service_hot_stone_massage_desc",
-    imageUrl: "/images/service-images/brow-shaping.webp",
+    imageUrl: "/images/service-images/microblading.webp",
   },
   {
     id: "prosthetic_nails",
@@ -149,7 +149,7 @@ const rawServices: Service[] = [
     duration: 20,
     nameKey: "service_skin_analysis_name",
     descKey: "service_skin_analysis_desc",
-    imageUrl: "/images/service-images/facial.webp",
+    imageUrl: "/images/service-images/skin-analysis.webp",
   },
   {
     id: "golden_ratio_brow",

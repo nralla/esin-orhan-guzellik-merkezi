@@ -7,7 +7,6 @@ import { getLocalizedData, Service, Master } from "@/lib/data";
 import useIsRTL from "@/hooks/useIsRTL";
 import { useIsBookingModalMobileVersion } from "@/hooks/useIsBookingModalMobileVersion";
 import ServiceStep from "./steps/ServiceStep";
-import MasterStep from "./steps/MasterStep";
 import DateTimeStep from "./steps/DateTimeStep";
 import ConfirmStep from "./steps/ConfirmStep";
 import { ModalOverlay } from "@/components/modal-overlay";
@@ -19,33 +18,30 @@ import ChronicleButton from "@/components/RefinedChronicleButton";
 type ModalMode = "default" | "master-specific" | "service-specific";
 type Step =
   | "service"
-  | "master"
   | "date"
   | "time"
   | "confirm"
-  | "payment";
+  | "contact";
 
 const stepOrderDefault: Step[] = [
   "service",
-  "master",
   "date",
   "time",
   "confirm",
-  "payment",
+  "contact",
 ];
 const stepOrderMasterSpecific: Step[] = [
   "service",
   "date",
   "time",
   "confirm",
-  "payment",
+  "contact",
 ];
 const stepOrderServiceSpecific: Step[] = [
-  "master",
   "date",
   "time",
   "confirm",
-  "payment",
+  "contact",
 ];
 
 const EMPTY_CONTACT: ContactDetails = { phone: "", fullName: "", note: "", district: "" };
@@ -122,44 +118,20 @@ export default function BookingModal({
     return services;
   }, [modalMode, lockedMasterId, services, masters]);
 
-  const filteredMasters = useMemo(() => {
-    if (
-      (modalMode === "default" || modalMode === "service-specific") &&
-      selectedServiceId
-    ) {
-      return masters.filter((m) => m.services.includes(selectedServiceId));
-    }
-    if (modalMode === "master-specific" && lockedMasterId) {
-      return masters.filter((m) => m.id === lockedMasterId);
-    }
-    return masters;
-  }, [modalMode, masters, selectedServiceId, lockedMasterId]);
-
   const resetState = useCallback(() => {
     setCurrentStep(currentStepOrder[0]);
-    setSelectedMasterId(lockedMasterId);
     setSelectedDate(undefined);
     setSelectedTime(undefined);
     setDailySchedule([]);
     setGeneratedSlots([]);
     setIsPaymentLoading(false);
     setContactDetails(EMPTY_CONTACT);
-    if (preselectedServiceId) {
-      setSelectedServiceId(preselectedServiceId);
-    } else if (modalMode === "master-specific" && filteredServices.length > 0) {
-      setSelectedServiceId(filteredServices[0].id);
-    } else if (services.length > 0) {
-      setSelectedServiceId(services[0].id);
-    } else {
-      setSelectedServiceId(undefined);
-    }
+    setSelectedServiceId(preselectedServiceId ?? filteredServices[0]?.id ?? services[0]?.id);
   }, [
     currentStepOrder,
     preselectedServiceId,
-    lockedMasterId,
     filteredServices,
     services,
-    modalMode,
   ]);
 
   useEffect(() => {
@@ -176,9 +148,25 @@ export default function BookingModal({
     [services, selectedServiceId]
   );
   const selectedMaster = useMemo(
-    () => masters.find((m) => m.id === selectedMasterId),
-    [masters, selectedMasterId]
+    () =>
+      masters.find((m) => m.id === selectedMasterId) ||
+      (selectedServiceId
+        ? masters.find((m) => m.services.includes(selectedServiceId))
+        : masters[0]),
+    [masters, selectedMasterId, selectedServiceId]
   );
+
+  useEffect(() => {
+    if (!masters.length || !selectedServiceId) return;
+    if (lockedMasterId) {
+      setSelectedMasterId(lockedMasterId);
+      return;
+    }
+    const matchingMaster = masters.find((master) =>
+      master.services.includes(selectedServiceId)
+    );
+    setSelectedMasterId(matchingMaster?.id ?? masters[0]?.id);
+  }, [masters, selectedServiceId, lockedMasterId]);
 
   const handleNext = useCallback(() => {
     if (isAnimating) return;
@@ -235,7 +223,7 @@ export default function BookingModal({
       if (!service) return "";
       const priceKey = `price-${lang}` as keyof Service;
       const price = service[priceKey] || service["price-en"];
-      if (!price) return "Bilgi Al";
+      if (!price) return "Ücretsiz analiz";
       if (lang === "it") {
         return `${price} ${currencySymbol}`;
       }
@@ -248,22 +236,12 @@ export default function BookingModal({
   const showCloseButton = currentStep;
 
   const modalTitle = useMemo(() => {
-    if (modalMode === "master-specific" && selectedMaster) {
-      return (
-        <div className="text-center leading-tight py-2">
-          <span className="block text-sm font-normal">
-            {translations.book_for_master_title || "Book an appointment for"}
-          </span>
-          <span className="block text-base font-semibold">{selectedMaster.name}</span>
-        </div>
-      );
-    }
     return (
       <span className="text-lg font-semibold">
-        {translations.modal_title || "Schedule Visit"}
+        {translations.modal_title || "Randevu Oluştur"}
       </span>
     );
-  }, [modalMode, selectedMaster, translations]);
+  }, [translations]);
 
   const variants = {
     enter: (direction: number) => ({
@@ -357,6 +335,7 @@ export default function BookingModal({
                   <button
                     onClick={handleBack}
                     className="p-2 text-gray-400 hover:text-white transition-colors"
+                    aria-label="Önceki adıma dön"
                   >
                     <ArrowLeft
                       size={20}
@@ -371,6 +350,7 @@ export default function BookingModal({
                   <button
                     onClick={onClose}
                     className="p-2 text-gray-400 hover:text-white transition-colors"
+                    aria-label="Randevu penceresini kapat"
                   >
                     <X size={20} />
                   </button>
@@ -411,26 +391,7 @@ export default function BookingModal({
                               onSelectService={setSelectedServiceId}
                               onNext={handleNext}
                               formatPrice={formatPrice}
-                              lockedMaster={
-                                modalMode === "master-specific"
-                                  ? selectedMaster
-                                  : undefined
-                              }
                               isMobile={isMobileVersion}
-                            />
-                          );
-                        case "master":
-                          return (
-                            <MasterStep
-                              masters={filteredMasters}
-                              selectedMasterId={selectedMasterId}
-                              onSelectMaster={setSelectedMasterId}
-                              onNext={handleNext}
-                              preselectedService={
-                                modalMode === "service-specific"
-                                  ? selectedService
-                                  : undefined
-                              }
                             />
                           );
                         case "date":
@@ -470,10 +431,10 @@ export default function BookingModal({
                               time={selectedTime!}
                               formatPrice={formatPrice}
                               isMobile={isMobileVersion}
-                              masterSpecific={modalMode === "master-specific"}
+                              masterSpecific={false}
                             />
                           );
-                        case "payment":
+                        case "contact":
                           return (
                             <PaymentStep
                               isMobile={isMobileVersion}
@@ -498,29 +459,27 @@ export default function BookingModal({
                 }}
               >
                 {(currentStep === "service" ||
-                  currentStep === "master" ||
                   currentStep === "date" ||
                   currentStep === "time" ||
                   currentStep === "confirm" ||
-                  currentStep === "payment") && (
+                  currentStep === "contact") && (
                   <ChronicleButton
-                    onClick={() => {
-                      if (currentStep === "confirm") {
-                        handleNext();
-                      } else if (currentStep === "payment") {
-                        if (!isPaymentLoading) {
-                          handleBookingConfirmed();
-                        }
-                      } else {
-                        if (!isAnimating) handleNext();
+                  onClick={() => {
+                    if (currentStep === "confirm") {
+                      handleNext();
+                    } else if (currentStep === "contact") {
+                      if (!isPaymentLoading) {
+                        handleBookingConfirmed();
                       }
-                    }}
-                    disabled={
+                    } else if (!isAnimating) {
+                      handleNext();
+                    }
+                  }}
+                  disabled={
                       (currentStep === "service" && !selectedServiceId) ||
-                      (currentStep === "master" && !selectedMasterId) ||
                       (currentStep === "date" && !selectedDate) ||
                       (currentStep === "time" && !selectedTime) ||
-                      (currentStep === "payment" &&
+                      (currentStep === "contact" &&
                         (isPaymentLoading ||
                           contactDetails.fullName.trim().length < 2 ||
                           contactDetails.phone.replace(/\D/g, "").length < 10))
@@ -536,20 +495,20 @@ export default function BookingModal({
                     width="100%"
                   >
                     {/* Display loader with spacing before text respecting direction */}
-                    {currentStep === "payment" && isPaymentLoading ? (
+                    {currentStep === "contact" && isPaymentLoading ? (
                       <>
                         {isRTL ? null : <Loader />}
                         <span>
-                          {translations.pay_button || "Pay"}
+                          {translations.pay_button || "Randevu Talebi Oluştur"}
                         </span>
                         {isRTL ? <Loader /> : null}
                       </>
                     ) : currentStep === "confirm" ? (
-                      translations.confirm_button || "Confirm"
-                    ) : currentStep === "payment" ? (
-                      translations.pay_button || "Pay"
+                      translations.confirm_button || "Bilgilerimi Gir"
+                    ) : currentStep === "contact" ? (
+                      translations.pay_button || "Randevu Talebi Oluştur"
                     ) : (
-                      translations.continue_button || "Continue"
+                      translations.continue_button || "Devam Et"
                     )}
                   </ChronicleButton>
                 )}

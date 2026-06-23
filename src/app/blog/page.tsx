@@ -32,11 +32,17 @@ export default function BlogPage() {
   const rest = blogPosts.slice(3);
 
   return (
-    <main className="min-h-screen bg-[#090c0b] text-white">
+    <main className="min-h-screen bg-[#090c0b] pb-16 text-white">
       <header className="border-b border-white/10">
         <div className="mx-auto flex max-w-[1240px] items-center justify-between px-5 py-4 sm:px-10">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/images/esin-orhan-mark.webp" alt="Esin Orhan" width={64} height={42} className="rounded-[4px] bg-white p-1" />
+            <Image
+              src="/images/esin-orhan-mark.webp"
+              alt="Esin Orhan"
+              width={64}
+              height={42}
+              className="rounded-[4px] bg-white p-1"
+            />
             <span className="font-bold">Esin Orhan Güzellik Merkezi</span>
           </Link>
           <Link href="/#analysis" className="text-sm font-semibold text-[#d9bd73]">
@@ -46,17 +52,22 @@ export default function BlogPage() {
       </header>
 
       <section className="mx-auto max-w-[1240px] px-5 py-16 sm:px-10 sm:py-20">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d9bd73]">Bilgi merkezi</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d9bd73]">
+          Bilgi merkezi
+        </p>
         <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight sm:text-5xl">
           Isparta lazer epilasyon ve bakım rehberleri
         </h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-white/60">
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-white/70">
           Merkez seçimi, cihaz farkları, kıl kökü analizi, fiyat okuma, seans planı ve kullanıcı yorumlarını değerlendirme gibi konularda kısa değil, gerçekten iş gören yazılar hazırladık.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
           {focusTopics.map((topic) => (
-            <span key={topic} className="inline-flex items-center gap-2 border border-white/10 bg-[#101815] px-4 py-2 text-sm text-white/75">
+            <span
+              key={topic}
+              className="inline-flex items-center gap-2 border border-white/10 bg-[#101815] px-4 py-2 text-sm text-white/80"
+            >
               <Sparkles className="h-4 w-4 text-[#d9bd73]" />
               {topic}
             </span>
@@ -68,15 +79,23 @@ export default function BlogPage() {
             <article key={post.slug} className="overflow-hidden border border-white/10 bg-[#101815]">
               <Link href={`/blog/${post.slug}`} className="group block">
                 <div className="relative aspect-[16/9] overflow-hidden">
-                  <Image src={post.image} alt={post.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-2 text-xs text-white/45">
                     <Clock3 className="h-4 w-4" />
                     {post.readTime}
                   </div>
-                  <h2 className="mt-4 text-xl font-semibold leading-7">{post.title}</h2>
-                  <p className="mt-3 text-sm leading-6 text-white/60">{post.description}</p>
+                  <h2 className="mt-4 text-xl font-semibold leading-7 text-white">
+                    {post.title}
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-white/72">{post.description}</p>
                   <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#d9bd73]">
                     Rehberi oku <ArrowRight className="h-4 w-4" />
                   </span>
@@ -98,8 +117,8 @@ export default function BlogPage() {
                   <Clock3 className="h-4 w-4" />
                   {post.readTime}
                 </div>
-                <h2 className="mt-4 text-2xl font-semibold leading-8">{post.title}</h2>
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-white/60">{post.description}</p>
+                <h2 className="mt-4 text-2xl font-semibold leading-8 text-white">{post.title}</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-white/72">{post.description}</p>
                 <Link href={`/blog/${post.slug}`} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#d9bd73]">
                   Yazıyı aç <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -111,7 +130,7 @@ export default function BlogPage() {
         <div className="mt-16 grid gap-5 border-t border-white/10 pt-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="border border-white/10 bg-[#101815] p-7">
             <h2 className="text-2xl font-semibold">Bu blog ne için var?</h2>
-            <p className="mt-4 leading-7 text-white/60">
+            <p className="mt-4 leading-8 text-white/70">
               Kullanıcıların en çok aradığı sorulara uzun, anlaşılır ve karar vermeyi kolaylaştıran yanıtlar vermek için. Merkez seçimi yaparken yalnızca fiyat değil; analiz, cihaz, yorum, hijyen ve süreç takibi gibi başlıkları birlikte düşünmek gerekiyor.
             </p>
           </div>
@@ -123,6 +142,9 @@ export default function BlogPage() {
               </Link>
               <Link href="/#services" className="border border-white/10 px-4 py-2 text-sm text-white/75 hover:border-[#d9bd73]/70 hover:text-[#d9bd73]">
                 Hizmetler
+              </Link>
+              <Link href="/hizmetler" className="border border-white/10 px-4 py-2 text-sm text-white/75 hover:border-[#d9bd73]/70 hover:text-[#d9bd73]">
+                Tüm hizmetler
               </Link>
               <Link href="/#testimonials" className="border border-white/10 px-4 py-2 text-sm text-white/75 hover:border-[#d9bd73]/70 hover:text-[#d9bd73]">
                 Google yorumları

@@ -37,11 +37,11 @@ export default function OptimizedHeroSection({ onButtonClick }: OptimizedHeroSec
         <p className="mb-4 text-sm font-semibold uppercase text-[#d9bd73]">
           Ücretsiz kıl kökü ve cilt analizi
         </p>
-        <h1 className="text-[40px] font-bold leading-[1.08] text-[var(--foreground)] sm:text-[52px] lg:text-[64px]">
+        <h1 className="text-[40px] font-bold leading-[1.08] text-white sm:text-[52px] lg:text-[64px]">
           Isparta Lazer Epilasyon
           <span className="mt-2 block text-[#d9bd73]">Kişiye Özel Planlama</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-[var(--sub-foreground)] sm:text-lg lg:mx-0">
+        <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-[#aab6ae] sm:text-lg lg:mx-0">
           Kıl kökü ve cilt analiziyle size uygun lazer sistemini belirliyor; kadın ve erkek lazer epilasyon sürecini Çünür&apos;de kişiye özel planlıyoruz.
         </p>
 

@@ -3,6 +3,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/context/app-context";
 import { Suspense } from "react";
+import StickyContactBar from "@/components/StickyContactBar";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -11,6 +12,8 @@ const openSans = Open_Sans({
 });
 
 const siteUrl = "https://ispartaguzellikmerkezi.com";
+const googleMapsUrl =
+  "https://www.google.com/maps/search/?api=1&query=%C3%87%C3%BCn%C3%BCr%2C%20275.%20Cd%20No%3A38%20D%3A34%2C%2032200%20Isparta%20Merkez";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -81,7 +84,8 @@ const localBusinessSchema = {
   telephone: "+90 501 113 32 32",
   priceRange: "₺₺",
   image: `${siteUrl}/images/esin-orhan-logo.webp`,
-  sameAs: ["https://www.youtube.com/@esinorhang%C3%BCzellik"],
+  hasMap: googleMapsUrl,
+  sameAs: ["https://www.youtube.com/@esinorhang%C3%BCzellik", googleMapsUrl],
   areaServed: { "@type": "City", name: "Isparta" },
   address: {
     "@type": "PostalAddress",
@@ -180,6 +184,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <AppProvider>{children}</AppProvider>
         </Suspense>
+        <StickyContactBar />
       </body>
     </html>
   );

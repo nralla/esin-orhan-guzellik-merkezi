@@ -9,6 +9,7 @@ import React, {
   useMemo,
 } from "react";
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import { useApp } from "@/context/app-context";
 import NavCenter from "./Limelight";
 import { getLegacyBackdropStyle } from "./LegacyBackdrop";
@@ -45,6 +46,7 @@ export default function Navbar({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const limelightRef = useRef<HTMLDivElement | null>(null);
@@ -186,13 +188,21 @@ export default function Navbar({
   // Localized items (memoized to prevent re-renders)
   const localizedItems = useMemo(
     () =>
-      navItems.map((item, index) => ({
-        ...item,
-        label: t?.(`nav_${item.id.toLowerCase()}`) || item.label,
-        icon: item.icon,
-        href: item.id === "hero" ? "#hero" : `#${item.targetId}`,
-        onClick: () => handleItemClick(index),
-      })),
+      navItems.map((item, index) => {
+        const translationKey = `nav_${item.id.toLowerCase()}`;
+        const translatedLabel = t?.(translationKey);
+
+        return {
+          ...item,
+          label:
+            translatedLabel && translatedLabel !== translationKey
+              ? translatedLabel
+              : item.label,
+          icon: item.icon,
+          href: item.id === "hero" ? "#hero" : `#${item.targetId}`,
+          onClick: () => handleItemClick(index),
+        };
+      }),
     [navItems, t, handleItemClick]
   );
 
@@ -213,6 +223,14 @@ export default function Navbar({
     blurStrength,
     isScrolled,
   });
+
+  const handleMobileItemClick = useCallback(
+    (index: number) => {
+      handleItemClick(index);
+      setMobileMenuOpen(false);
+    },
+    [handleItemClick]
+  );
 
   return (
     <div id="nav-wrapper">
@@ -284,7 +302,47 @@ export default function Navbar({
               />
             </div>
 
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              className="relative z-30 inline-flex h-11 w-11 items-center justify-center border border-white/[0.12] bg-white/[0.04] text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] md:hidden"
+              aria-label={mobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-menu"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+
           </div>
+
+          {mobileMenuOpen && (
+            <div
+              id="mobile-nav-menu"
+              className="absolute left-3 right-3 top-[calc(100%+10px)] z-50 border border-white/[0.12] bg-[#07100d]/92 p-2 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl md:hidden"
+              style={{
+                WebkitBackdropFilter: `blur(${blurStrength + 4}px)`,
+                backdropFilter: `blur(${blurStrength + 4}px)`,
+              }}
+            >
+              {localizedItems.map((item, index) => (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleMobileItemClick(index);
+                  }}
+                  className="flex min-h-12 items-center gap-3 border-b border-white/[0.08] px-4 text-sm font-semibold text-white/78 transition-colors last:border-b-0 hover:bg-white/[0.04] hover:text-[var(--accent)]"
+                >
+                  {item.icon &&
+                    React.cloneElement(item.icon, {
+                      className: "h-5 w-5 text-[var(--accent)]",
+                    })}
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </nav>
     </div>

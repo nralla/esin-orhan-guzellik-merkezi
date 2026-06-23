@@ -24,6 +24,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import {
   OptimizedAboutSection,
   OptimizedBlogSection,
+  OptimizedGallerySection,
   OptimizedExpertiseSection,
   OptimizedFaqSection,
   OptimizedFooter,
@@ -138,6 +139,7 @@ export default function HomePage() {
     { id: "masters", label: transl("masters_title"), icon: <Users />, targetId: "masters" },
     { id: "testimonials", label: transl("testimonials_title"), icon: <MessageSquareQuote />, targetId: "testimonials" },
     { id: "about", label: transl("about_us_title"), icon: <Info />, targetId: "about" },
+    { id: "gallery", label: "Galeri", icon: <Sparkles />, targetId: "gallery" },
     { id: "blog", label: "Blog", icon: <Newspaper />, targetId: "blog" },
     { id: "faq", label: transl("faq_title"), icon: <HelpCircle />, targetId: "faq" },
   ];
@@ -272,11 +274,11 @@ export default function HomePage() {
     >
       <React.Fragment key={animationKey}>
           <div className="flex flex-col min-h-screen bg-[var(--background)]">
-            <div
-              id="page-scroll-container"
-              ref={scrollContainerRef}
-              className="flex-grow overflow-y-auto overflow-x-hidden h-screen"
-            >
+              <div
+                id="page-scroll-container"
+                ref={scrollContainerRef}
+                className="flex-grow overflow-y-auto overflow-x-hidden h-screen pb-6"
+              >
               <div id="hero-anchor" style={{ height: 0, margin: 0, padding: 0 }} />
               <div className="sticky top-0 z-[1000] w-full bg-transparent">
                 <LimitedWidthWrapper
@@ -312,6 +314,10 @@ export default function HomePage() {
                   />
                 </SectionWithExternalWidthLimiter>
                 <div className="h-[2px] bg-[#0f1613]" />
+                <SectionWithExternalWidthLimiter id="gallery" bg="#0c1411" height="auto">
+                  <OptimizedGallerySection />
+                </SectionWithExternalWidthLimiter>
+                <div className="h-[2px] bg-[#0c1411]" />
                 <SectionWithExternalWidthLimiter id="blog" bg="#0c1411" height="auto">
                   <OptimizedBlogSection />
                 </SectionWithExternalWidthLimiter>
