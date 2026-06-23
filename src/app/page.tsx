@@ -2,25 +2,11 @@
 
 import * as React from "react";
 import { useRef, useEffect, useState, useCallback } from "react";
-import Navbar, { NavItem } from "@/components/CustomizedTruncatingNavbar";
-import {
-  Sparkles,
-  Users,
-  Info,
-  MessageSquareQuote,
-  HomeIcon,
-  HelpCircle,
-  ScanLine,
-  Newspaper,
-} from "lucide-react";
-import useIsRTL from "@/hooks/useIsRTL";
-import { useTranslation } from "@/context/app-context";
 import LimitedWidthWrapper from "@/components/limited-width-wrapper";
 import OptimizedHeroSection from "@/components/sections/hero/OptimizedHeroSection";
 import LaserAnalysisSection from "@/components/sections/laser-analysis/LaserAnalysisSection";
 import SocialProofSection from "@/components/sections/social-proof/SocialProofSection";
 import { useApp } from "@/context/app-context";
-import { useIsMobile } from "@/hooks/use-mobile";
 import {
   OptimizedAboutSection,
   OptimizedBlogSection,
@@ -35,36 +21,14 @@ import dynamic from "next/dynamic";
 const BookingModal = dynamic(() => import("@/components/BookingModal/index"), { ssr: false });
 const ReservationSuccessModal = dynamic(() => import("@/components/ReservationSuccessModal"), { ssr: false });
 
-const HEIGHT_MIN = 800;
-const HEIGHT_MAX = 912;
-
-const LARGE_SETTINGS = {
-  CONTENT_MAX_WIDTH: "1448px",
-  NAVBAR_PADDING_DESKTOP: 24,
-  NAVBAR_PADDING_MOBILE: 10,
-  CONTENT_PADDING_DESKTOP: 48,
-  CONTENT_PADDING_MOBILE: 20,
-};
-
-const SMALL_SETTINGS = {
-  CONTENT_MAX_WIDTH: "1306px",
-  NAVBAR_PADDING_DESKTOP: 16,
-  NAVBAR_PADDING_MOBILE: 10,
-  CONTENT_PADDING_DESKTOP: 40,
-  CONTENT_PADDING_MOBILE: 20,
-};
-
-function lerp(min: number, max: number, t: number) {
-  return min + (max - min) * t;
-}
+const CONTENT_MAX_WIDTH = "1448px";
+const CONTENT_PADDING_DESKTOP = "48px";
+const CONTENT_PADDING_MOBILE = "20px";
 
 export default function HomePage() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const isRTL = useIsRTL();
   const { lang } = useApp();
   const [animationKey, setAnimationKey] = useState(0);
-  const [windowHeight, setWindowHeight] = useState(HEIGHT_MAX);
-  const isMobile = useIsMobile();
 
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [lockedMasterId, setLockedMasterId] = useState<string | undefined>();
@@ -76,73 +40,6 @@ export default function HomePage() {
   useEffect(() => {
     setAnimationKey((v) => v + 1);
   }, [lang]);
-
-  useEffect(() => {
-    function onResize() {
-      setWindowHeight(window.innerHeight);
-    }
-    window.addEventListener("resize", onResize);
-    onResize();
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-
-  const t =
-    windowHeight >= HEIGHT_MAX
-      ? 1
-      : windowHeight <= HEIGHT_MIN
-      ? 0
-      : (windowHeight - HEIGHT_MIN) / (HEIGHT_MAX - HEIGHT_MIN);
-
-  const NAVBAR_PADDING_DESKTOP = `${lerp(
-    SMALL_SETTINGS.NAVBAR_PADDING_DESKTOP,
-    LARGE_SETTINGS.NAVBAR_PADDING_DESKTOP,
-    t
-  )}px`;
-
-  const NAVBAR_PADDING_MOBILE = `${lerp(
-    SMALL_SETTINGS.NAVBAR_PADDING_MOBILE,
-    LARGE_SETTINGS.NAVBAR_PADDING_MOBILE,
-    t
-  )}px`;
-
-  const CONTENT_PADDING_DESKTOP = `${lerp(
-    SMALL_SETTINGS.CONTENT_PADDING_DESKTOP,
-    LARGE_SETTINGS.CONTENT_PADDING_DESKTOP,
-    t
-  )}px`;
-
-  const CONTENT_PADDING_MOBILE = `${lerp(
-    SMALL_SETTINGS.CONTENT_PADDING_MOBILE,
-    LARGE_SETTINGS.CONTENT_PADDING_MOBILE,
-    t
-  )}px`;
-
-  function interpolatePx(minPxStr: string, maxPxStr: string, t: number) {
-    const minPx = parseInt(minPxStr, 10);
-    const maxPx = parseInt(maxPxStr, 10);
-    const val = Math.round(lerp(minPx, maxPx, t));
-    return `${val}px`;
-  }
-
-  const CONTENT_MAX_WIDTH = interpolatePx(
-    SMALL_SETTINGS.CONTENT_MAX_WIDTH,
-    LARGE_SETTINGS.CONTENT_MAX_WIDTH,
-    t
-  );
-
-  const transl = useTranslation();
-
-  const navItems: NavItem[] = [
-    { id: "hero", label: transl("section_label_hero"), icon: <HomeIcon />, targetId: "hero" },
-    { id: "services", label: transl("services_title"), icon: <Sparkles />, targetId: "services" },
-    { id: "analysis", label: "Kıl Kökü Analizi", icon: <ScanLine />, targetId: "analysis" },
-    { id: "masters", label: transl("masters_title"), icon: <Users />, targetId: "masters" },
-    { id: "testimonials", label: transl("testimonials_title"), icon: <MessageSquareQuote />, targetId: "testimonials" },
-    { id: "about", label: transl("about_us_title"), icon: <Info />, targetId: "about" },
-    { id: "gallery", label: "Galeri", icon: <Sparkles />, targetId: "gallery" },
-    { id: "blog", label: "Blog", icon: <Newspaper />, targetId: "blog" },
-    { id: "faq", label: transl("faq_title"), icon: <HelpCircle />, targetId: "faq" },
-  ];
 
   const Section = ({
     id,
@@ -224,13 +121,6 @@ export default function HomePage() {
     }
   }, []);
 
-  const handleBookAppointmentClicked = (masterId: string) => {
-    // Master-specific mode: locked master
-    setLockedMasterId(masterId);
-    setPreselectedServiceId(undefined);
-    setShowBookingModal(true);
-  };
-
   const handleServiceClicked = (serviceId: string) => {
     // Service-specific mode: preselect service, no locked master
     setPreselectedServiceId(serviceId);
@@ -280,21 +170,6 @@ export default function HomePage() {
                 className="flex-grow overflow-y-auto overflow-x-hidden h-screen pb-6"
               >
               <div id="hero-anchor" style={{ height: 0, margin: 0, padding: 0 }} />
-              <div className="sticky top-0 z-[1000] w-full bg-transparent">
-                <LimitedWidthWrapper
-                  expandToFull={false}
-                  maxWidth={CONTENT_MAX_WIDTH}
-                  paddingDesktop={NAVBAR_PADDING_DESKTOP}
-                  paddingMobile={NAVBAR_PADDING_MOBILE}
-                >
-                  <Navbar
-                    navItems={navItems}
-                    isRTL={isRTL}
-                    isMobile={isMobile}
-                    scrollContainerRef={scrollContainerRef}
-                  />
-                </LimitedWidthWrapper>
-              </div>
               <main className="flex-1">
                 <Section id="hero" bg="transparent" height="auto">
                   <OptimizedHeroSection onButtonClick={handleButtonClick} />

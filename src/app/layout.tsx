@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { AppProvider } from "@/context/app-context";
 import { Suspense } from "react";
+import Analytics from "@/components/Analytics";
+import SiteHeader from "@/components/SiteHeader";
 import StickyContactBar from "@/components/StickyContactBar";
 
 const openSans = Open_Sans({
@@ -14,6 +17,8 @@ const openSans = Open_Sans({
 const siteUrl = "https://ispartaguzellikmerkezi.com";
 const googleMapsUrl =
   "https://www.google.com/maps/search/?api=1&query=%C3%87%C3%BCn%C3%BCr%2C%20275.%20Cd%20No%3A38%20D%3A34%2C%2032200%20Isparta%20Merkez";
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -175,14 +180,65 @@ export default function RootLayout({
     <html lang="tr" className="dark">
       <head>
         <link rel="preload" as="image" href="/images/service-images/laser-hair-removal.webp" fetchPriority="high" />
+        {gtmId ? (
+          <Script id="gtm-init" strategy="afterInteractive">
+            {`
+              (function(w,d,s,l,i){
+                w[l]=w[l]||[];
+                w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+                var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),
+                    dl=l!='dataLayer'?'&l='+l:'';
+                j.async=true;
+                j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${gtmId}');
+            `}
+          </Script>
+        ) : null}
+        {gaId ? (
+          <>
+            <Script
+              id="ga4-src"
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', '${gaId}', {
+                  anonymize_ip: true,
+                  allow_google_signals: false,
+                  allow_ad_personalization_signals: false
+                });
+              `}
+            </Script>
+          </>
+        ) : null}
       </head>
       <body className={`${openSans.variable} antialiased`}>
+        {gtmId ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              aria-hidden="true"
+            />
+          </noscript>
+        ) : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, websiteSchema, faqSchema]) }}
         />
+        <SiteHeader />
         <Suspense fallback={null}>
           <AppProvider>{children}</AppProvider>
+          <Analytics gaId={gaId} />
         </Suspense>
         <StickyContactBar />
       </body>

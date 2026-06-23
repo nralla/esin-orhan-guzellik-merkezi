@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
 import * as WheelPickerPrimitive from "@ncdai/react-wheel-picker";
+import type { WheelPickerValue } from "@ncdai/react-wheel-picker";
 import "@ncdai/react-wheel-picker/style.css";
 import ChronicleButton from "@/components/RefinedChronicleButton";
 import { AnimatePresence, motion } from "framer-motion";
@@ -62,8 +63,8 @@ export const LanguageSelector = React.forwardRef<
     setTempSelectedValue(lang);
   }, [lang]);
 
-  const handleValueChange = useCallback((value: string) => {
-    setTempSelectedValue(value);
+  const handleValueChange = useCallback((value: WheelPickerValue) => {
+    setTempSelectedValue(String(value));
   }, []);
 
   const handleApply = async () => {
