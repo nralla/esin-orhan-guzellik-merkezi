@@ -142,7 +142,7 @@ export function Calendar({
   };
 
   const renderCalendarDays = () => {
-    const days: JSX.Element[] = [];
+    const days: React.ReactElement[] = [];
     const localeDayNames = dayNames[lang] || dayNames["en"];
     for (let i = 0; i < 7; i++) {
       const dayIndex = i;
