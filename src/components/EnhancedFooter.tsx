@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { MultiColoredTextV1 } from "@/components/MultiColoredText";
 import { useApp } from "@/context/app-context";
 import { cn } from "@/lib/utils";
 import { PhoneCallIcon } from "lucide-react";
-import { SnowflakeIcon } from "./SnowflakeIcon";
 import { getColorHarmonies } from "@/lib/colorHarmonies";
 import LimitedWidthWrapper from "@/components/limited-width-wrapper";
 import HighlightHover from "@/components/HighlightHover";
@@ -102,7 +102,6 @@ export default function EnhancedFooter({
     : isMobile
     ? "gap-[5.5px]"
     : "gap-[6px]";
-  const snowflakeSize = isMobile ? 30 : 32;
   const multiTextColors =
     harmonies.analogous.length && harmonies.triad.length
       ? [harmonies.analogous[2], primaryColor, harmonies.triad[1]]
@@ -298,11 +297,13 @@ const madeByText: Record<
                   maxWidth: "max-content",
                 }}
               >
-                <SnowflakeIcon
-                  animate={isHovered}
-                  size={snowflakeSize}
-                  isRTL={isRTL}
-                  className="stroke-current transition-colors duration-300 ease-in-out"
+                <Image
+                  src="/images/esin-orhan-icon.png"
+                  alt=""
+                  width={isMobile ? 30 : 32}
+                  height={isMobile ? 30 : 32}
+                  aria-hidden="true"
+                  className="rounded-[6px] shadow-[0_10px_28px_rgba(0,0,0,0.24)]"
                 />
                 <span
                   className={`font-bold ${logoFontSize} transition-colors duration-300 ease-in-out`}

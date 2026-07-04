@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Crosshair, ScanLine, ShieldCheck, Snowflake, Sparkles, UserRound } from "lucide-react";
+import { Crosshair, Droplets, ScanLine, ShieldCheck, Sparkles, UserRound } from "lucide-react";
 
 const technologies = [
   {
-    icon: Snowflake,
+    icon: Droplets,
     title: "Buz Başlıklı Diode Lazer",
     description:
       "Soğutmalı başlık sayesinde konforlu uygulama. Hassas ciltler, ince tüyler ve açık tenler için kişiye özel planlama.",
